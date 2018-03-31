@@ -25,7 +25,7 @@ imgSize60: 60x60
 title: Mesfin T Moges
 
 # Short description of your site
-description: A virtual proof that name is awesome!
+description: 
 
 # --- Navigation bar options --- #
 
@@ -68,6 +68,7 @@ author:
   twitch: yourname    
   yelp: yourname      
 
+syntax-highlighter: true
 # Select which links to show in the footer
 footer-links-active:
   rss: false
@@ -103,6 +104,7 @@ share-links-active:
 # --- Misc --- #
 # Fill in your Disqus shortname (NOT the userid) if you want to support Disqus comments
 disqus: "mesfinmoges-com"
+addthisPubid: "ra-5a76747e2e07b93d"
 
 # Fill in your Google Analytics ID to track your website using GA
 google_analytics: "UA-107828028-1"

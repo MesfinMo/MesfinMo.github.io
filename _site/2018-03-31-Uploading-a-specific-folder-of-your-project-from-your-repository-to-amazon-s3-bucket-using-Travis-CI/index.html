@@ -1,0 +1,747 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+
+  <title>Uploading a specific folder of your project from your repository to amazon s3 bucket using Travis CI</title>
+
+  <meta name="author" content="Mesfin Moges" />
+  
+  
+  <meta name="description" content="Uploading a specific folder of your project from your repository to amazon s3 bucket using Travis CI...In this post we’ll step-by-step look into how we can use Travis CI to deploy a site ‘assets’ folder of our project to amazon s3 bucket automatically which is triggered by a code push to a Github repository.">
+  
+
+  <link rel="alternate" type="application/rss+xml" title="Mesfin T Moges - " href="/feed.xml" />
+
+  
+    <!-- Google Tag Manager -->
+    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+    new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+    j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+    'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+    })(window,document,'script','dataLayer','GTM-W9K29GX');</script>
+    <!-- End Google Tag Manager -->
+
+    <!-- Google Tag Manager -->
+    <!--<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+    new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+    j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+    'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+    })(window,document,'script','dataLayer','GTM-W9K29GX');</script>-->
+    <!-- End Google Tag Manager -->
+
+
+  <link rel="apple-touch-icon" sizes="57x57" href="/favicons.ico/apple-icon-57x57.png">
+<link rel="apple-touch-icon" sizes="60x60" href="/favicons.ico/apple-icon-60x60.png">
+<link rel="apple-touch-icon" sizes="72x72" href="/favicons.ico/apple-icon-72x72.png">
+<link rel="apple-touch-icon" sizes="76x76" href="/favicons.ico/apple-icon-76x76.png">
+<link rel="apple-touch-icon" sizes="114x114" href="/favicons.ico/apple-icon-114x114.png">
+<link rel="apple-touch-icon" sizes="120x120" href="/favicons.ico/apple-icon-120x120.png">
+<link rel="apple-touch-icon" sizes="144x144" href="/favicons.ico/apple-icon-144x144.png">
+<link rel="apple-touch-icon" sizes="152x152" href="/favicons.ico/apple-icon-152x152.png">
+<link rel="apple-touch-icon" sizes="180x180" href="/favicons.ico/apple-icon-180x180.png">
+<link rel="icon" type="image/png" sizes="192x192"  href="/favicons.ico/android-icon-192x192.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicons.ico/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="96x96" href="/favicons.ico/favicon-96x96.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicons.ico/favicon-16x16.png">
+<link rel="manifest" href="/favicons.ico/manifest.json">
+<meta name="msapplication-TileColor" content="#ffffff">
+<meta name="msapplication-TileImage" content="/favicons.ico/ms-icon-144x144.png">
+<meta name="theme-color" content="#ffffff">
+
+  
+    
+      
+  <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.6.0/css/font-awesome.min.css" />
+
+    
+  
+
+  
+    
+      <link rel="stylesheet" href="https://d3u9etne7s6j1g.cloudfront.net/base/css/bootstrap-450fc463b8.min.css" />
+    
+      <link rel="stylesheet" href="https://d3u9etne7s6j1g.cloudfront.net/base/css/main-322ec2d97e.css" />
+    
+      <link rel="stylesheet" href="https://d3u9etne7s6j1g.cloudfront.net/blog/css/custom-54a28eb862.css" />
+    
+      <link rel="stylesheet" href="https://d3u9etne7s6j1g.cloudfront.net/base/css/loaders-763c85892b.css" />
+    
+  
+
+  
+    
+      <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic" />
+    
+      <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800" />
+    
+  
+
+  
+
+  
+
+  
+
+    <!-- Facebook OpenGraph tags -->
+  
+
+  
+  <meta property="og:title" content="Uploading a specific folder of your project from your repository to amazon s3 bucket using Travis CI" />
+  
+
+   
+  <meta property="og:description" content="I recently came across the need to serve a website’s assets(e.g. JavaScript, CSS and images) from a content delivery network (CDN). Using CDN to serve up assets not only helps accelerate webpage load time, by caching them on to servers nearest to visitors, but also helps in SEO, as website...">
+  
+
+
+  <meta property="og:type" content="website" />
+  
+  <meta property="og:url" content="http://localhost:4000/2018-03-31-Uploading-a-specific-folder-of-your-project-from-your-repository-to-amazon-s3-bucket-using-Travis-CI/" />
+  <link rel="canonical" href="http://localhost:4000/2018-03-31-Uploading-a-specific-folder-of-your-project-from-your-repository-to-amazon-s3-bucket-using-Travis-CI/" />
+  
+
+  
+  <meta property="og:image" content="https://d3u9etne7s6j1g.cloudfront.net/blog/img/600x600/github-travis-amazons3.png" />
+  
+  
+
+  <!-- Twitter summary cards -->
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:site" content="@mesfinmoges" />
+  <meta name="twitter:creator" content="@mesfinmoges" />
+
+  
+  <meta name="twitter:title" content="Uploading a specific folder of your project from your repository to amazon s3 bucket using Travis CI" />
+  
+
+  
+  <meta name="twitter:description" content="I recently came across the need to serve a website’s assets(e.g. JavaScript, CSS and images) from a content delivery network (CDN). Using CDN to serve up assets not only helps accelerate webpage load time, by caching them on to servers nearest to visitors, but also helps in SEO, as website...">
+  
+
+  
+  <meta name="twitter:image" content="https://d3u9etne7s6j1g.cloudfront.net/blog/img/600x600/github-travis-amazons3.png" />
+  
+
+  
+      
+	<!-- Global Site Tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-107828028-1"></script>
+    <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments)};
+    gtag('js', new Date());
+
+    gtag('config', 'UA-107828028-1');
+    </script>
+
+
+    
+</head>
+
+
+  <body>
+   
+    <header>
+    <div class="body-particles">
+
+        
+  <div class="small-top">
+<div class="container">
+ <div class="row social-icon">  <a target="_blank" href="https://www.facebook.com/MesfinMoges/" class=" fa fa-facebook"></a> <a target="_blank" href="https://twitter.com/MesfinMoges" class=" fa fa-twitter"></a> <a target="_blank" href="#" class=" fa fa-linkedin"></a></div>
+    </div>
+</div>
+  <div class="top-head ">
+<div class="container">
+      <div class="row">
+  <div class="logo col-xs-12 col-sm-12 col-md-6 col-lg-3">
+  <a href="/">
+    <img src="https://d3u9etne7s6j1g.cloudfront.net/blog/img/200x200/logo-mesfin.png">
+    <!-- <img src="img/logo.png"> -->
+  </a>
+          <!--<h1>RIDE SHARE & <medium>BEYOND</medium></h1>-->
+</div>
+ 
+</div>
+</div>
+</div>
+</div>
+
+<div id="particles-js"></div>
+</header>
+
+
+    
+    <div class="nav-wrapper">
+  <nav class="navbar navbar-expand-lg navbar-light bg-light">
+      <div class="container">
+        <a class="navbar-brand" href="/"> <img class="avatar-image avatar-image--small"  src="https://d3u9etne7s6j1g.cloudfront.net/blog/img/60x60/avatar-cartoon.png"></a>
+        <div class="navbar-logo">
+          <a class="navbar-brand" href="/"> <img class="avatar-image avatar-image--small"  src="https://d3u9etne7s6j1g.cloudfront.net/blog/img/100x100/logo-mesfin.png"></a>
+        </div>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+          <ul class="navbar-nav mr-auto">
+              <li class="nav-item active" id="blog">
+                  <a class="nav-link" href="/">Home <span class="sr-only">(current)</span></a>
+                </li>
+            <li class="nav-item active" id="blog">
+              <a class="nav-link" href="/">Blog </a>
+            </li>
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                About
+              </a>
+              <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                <a class="dropdown-item" href="/aboutme">Me</a>
+                <a class="dropdown-item" href="/aboutblog">This blog</a>
+              </div>
+            </li>
+            
+          </ul>
+          <form class="form-inline my-2 my-lg-0">
+            <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+            <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+          </form>
+        </div>
+    </div>
+      </nav>
+    </div>
+
+
+    
+    <section>
+<div class="container" role="main">
+    <div class="post-wrapper">
+        <div class="section-inner sectionLayout--insetColumn">
+            <div class="post-content col-md-8 offset-md-2">
+            <h1 class="post-title">
+              Uploading a specific folder of your project from your repository to amazon s3 bucket using Travis CI
+            </h1>
+            <div class="author">
+              <div class="container row">
+                <!-- <span>
+                  <img class="avatar-image avatar-image--small" 
+                  src="https://d3u9etne7s6j1g.cloudfront.net/base/img/60x60/author-avatar-default.jpg">
+                </span> -->
+                <span class="author-bio">
+                  <!-- <div class="author-name">Moses</div>
+                  <div class="author-title"></div> -->
+                  <div class="post-date">
+                    <time class="timeago" datetime="2018-03-31 20:25:30 +0000"></time>
+                  </div>
+                  </span>
+              </div>
+            </div>
+
+            <div class="post-img-container">
+            <img class="post-avatar" data-src="https://d3u9etne7s6j1g.cloudfront.net/blog/img/600x600/github-travis-amazons3.png" 
+            src="https://d3u9etne7s6j1g.cloudfront.net/blog/img/600x600/github-travis-amazons3.png">
+            
+            </div>
+        </div>
+        
+      <div class="post-content col-md-8 offset-md-2">
+        <p>I recently came across the need to serve a website’s assets(e.g. JavaScript, CSS and images) from a content delivery network (CDN). Using CDN to serve up assets not only helps accelerate webpage load time, by caching them on to servers nearest to visitors, but also helps in SEO, as website speed is one of google ranking factors.</p>
+
+<p>After deciding that I would use amazon CloudFront, I was looking for an automated way of deploying these assets to amazon s3 bucket, which CloudFront uses as an origin server, instead of a manual approach whereby we sign in to amazon s3 console and use the upload feature everytime we make changes.</p>
+
+<p>In this post we’ll step-by-step look into how we can use Travis CI to deploy a site ‘assets’ folder of our project to amazon s3 bucket automatically which is triggered by a code push to a Github repository.</p>
+
+<h4 id="prerequisites">Prerequisites</h4>
+<ul>
+  <li>Have an amazon aws account</li>
+  <li>Have a GitHub account and install git on your local computer. I assume that you have a basic knowledge of GitHub and git.</li>
+  <li>Install jekyll to create and run static sites.</li>
+  <li>Have Visual Studio Code for code editing.</li>
+</ul>
+
+<p>Looking at the diagram above, a developer pushes code to a github repository, Travis CI gets notified, it then starts building the code, run tests and commands based on scripts specified in ‘.travis.yml’ file. In our case, one of the commands is to deploy assets folder to amazon s3 bucket after a successful build. We’ll see this in more detail later in this post, but first let’s create a project.</p>
+
+<h4 id="step-1---create-a-jekyll-project">Step 1 - Create a jekyll project</h4>
+
+<p>Jekyll is a simple but powerful static site generator which lets you create a site in no time by just running few commands; it is also deeply integrated with Github which offers a lot of built-in support. If you’re interested in learning more, see <a href="https://jekyllrb.com/docs/home/" target="_blank">jekyll documentation</a>.</p>
+
+<p>Now open up Visual Studio Code and go to the Integrated Terminal by pressing Ctrl+` and run the following commands:</p>
+
+<pre class="prettyprint">
+$ gem install jekyll bundler
+
+$ jekyll new siteAssets
+
+$ cd siteAssets
+
+$ bundle exec jekyll serve
+</pre>
+
+<p>Now browse to http://localhost:4000</p>
+
+<p><img src="https://d3u9etne7s6j1g.cloudfront.net/blog/img/600x600/jekyll-default-site.png" alt="alt text" title="jekyll default site" width="100%" /></p>
+
+<h4 id="step-2---create-amazon-s3-bucket-and-iam-user">Step 2 - Create amazon s3 bucket and IAM user</h4>
+
+<p>In this step, we’ll be creating a bucket where we’ll be uploading our site assets to, also while we’re here at aws management console, we’ll be creating IAM user with specific access permission to this newly created bucket so that we can give Travis CI grant to make API calls to aws to access this bucket on behalf of this user, which we’ll see later.</p>
+
+<p>Sign in to <a href="https://aws.amazon.com/console/" target="_blank">AWS Management Console</a> :</p>
+
+<h5 id="create-amazon-s3-bucket">Create amazon s3 bucket</h5>
+
+<p>Open the amazon s3 console and click on ‘Create bucket’ button; on the popup window, enter bucket name and click Next through without changing the default settings.</p>
+
+<p><img src="https://d3u9etne7s6j1g.cloudfront.net/blog/img/600x600/Amazon-s3-bucket.png" alt="alt text" title="Amazon s3 bucket" width="80%" /></p>
+
+<h5 id="create-iam-user">Create IAM user</h5>
+
+<p>One of IAM best practices is to create individual IAM Users instead of using aws account root user credentials. When we create an IAM user, we can set permissions by attaching either AWS Managed Policies or Customer Managed Policies or both.</p>
+
+<p>In this example we’ll be creating a Customer Managed Policy and then attach it to the user when we create it.</p>
+
+<p>Since we’re creating this policy for Travis CI to be able to access the S3 bucket we just created, we make sure we include enough permission to do its job.</p>
+
+<p>Open the IAM console and click on ‘Policies’ tab on the left menu and then click on ‘Create policy’ button and in the following page ‘Visual Editor’ tab, make the following selection.</p>
+
+<ul>
+  <li>‘Service’, select S3</li>
+  <li>‘Actions’ : ‘List’, select ‘List Bucket’</li>
+  <li>‘Actions’ : ‘Read’, select ‘GetObject’ and ‘GetObjectAcl’</li>
+  <li>‘Actions’ : ‘Write’, select ‘PutObject’ and ‘DeleteObject’</li>
+  <li>‘Actions’ : ‘Permissions management’, select ‘PutObjectAcl’</li>
+  <li>‘Resources’, select specific and then click on the ‘Add ARN’ link corresponding to ‘bucket’; on the popup window enter the ARN for the bucket we created in the previous step which is ‘arn:aws:s3:::blog-samples-site-assets’</li>
+  <li>Click on ‘Add ARN’ link corresponding to ‘object’; on the popup window, enter the ARN followed by a forward slash and ‘<em>’, as  ‘arn:aws:s3:::blog-samples-site-assets/</em>’</li>
+</ul>
+
+<blockquote>
+  <p><strong>Note</strong>: You can find the ARN for a bucket by highlighting in from the list on S3 console and from the information window, click on ‘Copy Bucket ARN’</p>
+</blockquote>
+
+<p><img src="https://d3u9etne7s6j1g.cloudfront.net/blog/img/600x600/copy-bucket-ARN.png" alt="alt text" title="copy bucket ARN" width="80%" /></p>
+
+<blockquote>
+  <p><strong>Note</strong>: ‘blog-samples-site-assets’ is the name I gave to the bucket; it will be another one if you name yours differently.</p>
+</blockquote>
+
+<p><img src="https://d3u9etne7s6j1g.cloudfront.net/blog/img/600x600/aws-create-policy.png" alt="alt text" title="aws create policy" width="80%" /></p>
+
+<p>Click on ‘Review policy’ button on the bottom of the screen; give your new policy a meaningful name and description and finally click on the ‘Create policy’ button.</p>
+
+<p>Now, click on ‘Users’ tab on the left menu; and then</p>
+
+<ul>
+  <li>click on the ‘Add user’ button;</li>
+  <li>on the next screen, give the new user a meaningful name on the ‘User name’ section and select ‘Programmatic access’ for ‘Access type’</li>
+  <li>Click on the ‘Next: Permissions’ button</li>
+  <li>On the next screen, click on ‘Attach existing policies directly’ button</li>
+</ul>
+
+<p><img src="https://d3u9etne7s6j1g.cloudfront.net/blog/img/600x600/attach-policy-to-user.png" alt="alt text" title="attach policy to user" width="80%" /></p>
+
+<ul>
+  <li>Search the newly created policy by name</li>
+  <li>Click on the check box on the left of the policy from the grid	 to select it</li>
+  <li>Click on the ‘Next:Review’ button</li>
+  <li>On the next page, click on the ‘Create user’ button</li>
+</ul>
+
+<p>On the next page, you should be seeing a confirmation message that the new user is created;</p>
+
+<p>From the grid below, copy and paste the ‘Access key Id’ and ‘Secret access key’ values somewhere because we need them to configure travis CI later.</p>
+
+<p><img src="https://d3u9etne7s6j1g.cloudfront.net/blog/img/600x600/iam-user-access-secret-key.png" alt="alt text" title="iam user access secret key" width="80%" /></p>
+
+<blockquote>
+  <p><strong>Note</strong>: this is the only place you can copy ‘Secret access key’ value, once you close out of this page you won’t be able to retrieve this information.</p>
+</blockquote>
+
+<h4 id="step-3---create-a-github-repository-and-push-code-to-a-repository">Step 3 - Create a Github repository and Push code to a repository</h4>
+
+<p>In this step, you create a github repository and push the code for the project you created in Step 1. Once you completed creating a repository:</p>
+
+<ul>
+  <li>open Terminal</li>
+  <li>change the current working directory to the project directory you created</li>
+  <li>run the following commands:</li>
+</ul>
+
+<pre class="prettyprint">
+$ git init
+$ git add .
+$ git commit -m "First commit"
+$ git remote add origin remote git@github.com:MesfinMo/BlogSamples-siteAssets.git
+$ git push -u origin master
+</pre>
+
+<blockquote>
+  <p><strong>Note</strong> : ‘git@github.com:MesfinMo/BlogSamples-siteAssets.git’ on the 4th command is the SSH url for the repository I created; rename it with the one you created.</p>
+</blockquote>
+
+<h4 id="step-4---enable-your-project-repository-in-travis-ci">Step 4 - Enable your project repository in Travis CI</h4>
+
+<p>Now go to travis-ci.org and sign in with your GitHub account.</p>
+
+<p>Once you’re signed in, in the upper right corner, click on your name and choose ‘Profile’; you will see Travis CI has synchronized your GitHub repositories, including the one you just created in the previous step. Now, click on the grey button corresponding to the repository you want to enable.</p>
+
+<p><img src="https://d3u9etne7s6j1g.cloudfront.net/blog/img/600x600/travis-enable-repo.png" alt="alt text" title="travis enable repo" width="80%" /></p>
+
+<p>Once you see it’s enabled by the color change, click on the settings button next to it; and on the following page, on the ‘Environment Variables’ section, add values for ‘AWS_ACCESS_KEY_ID’ and ‘AWS_SECRET_ACCESS_KEY’ from what you’ve saved, by copying and pasting them, in the last part of ‘Step 2’.</p>
+
+<p><img src="https://d3u9etne7s6j1g.cloudfront.net/blog/img/600x600/travis-env-variables.png" alt="alt text" title="ttravis env. variables" width="80%" /></p>
+
+<blockquote>
+  <p><strong>Note</strong>: Make sure you add the value for ‘AWS_DEFAULT_REGION’ as well.</p>
+</blockquote>
+
+<h4 id="step-5---add-travisyml-file-and-assets-folder-to-the-project">Step 5 - Add .travis.yml file and ‘assets’ folder to the project</h4>
+
+<p>In this step, we’ll be updating our project by adding ‘.travis.yml’ file to the root as well as ‘assets’ folder where we’ll be saving our JavaScript, CSS and images into.</p>
+
+<h5 id="add-travisyml-file">Add ‘.travis.yml’ file</h5>
+
+<p>.travis.yml is a configuration file which is used by Travis CI to learn about your project and what jobs you want it to run.</p>
+
+<p>In the root of your project add a new file and name it as ‘.travis.yml’ and then add the following code to it.</p>
+
+<div class="yml">
+<pre class="prettyprint linenums">
+language: python
+python:
+  - "2.7"
+install: 
+  - bundle install
+  - pip install awscli
+script:
+  - bundle exec jekyll build
+after_success:
+  - aws s3 sync --delete ./_site/assets  s3://blog-samples-site-assets --cache-control max-age=604800
+branches:
+  only: 
+    - master
+</pre>
+</div>
+
+<p>There are basically two steps when travis CI performs a build :</p>
+
+<ol>
+  <li>install: install any dependencies required</li>
+  <li>script: run the build script</li>
+</ol>
+
+<p>Travis CI also provides options to include custom commands if you want to run before the installation step ‘before_install’ as well as before ‘before_script’ or after ‘after_script’ the script step.</p>
+
+<p><strong>Note</strong> : looking at the .travis.yml code above, there are no custom commands are required.</p>
+
+<p>Travis CI also allows you to perform additional steps when your build succeeds or fails with ‘after_success’ or ‘after_failure’ options respectively. 
+Read the <a href="https://docs.travis-ci.com/user/customizing-the-build/" target="_blank">Customizing the Build</a> for an in-depth explanation.
+sys</p>
+
+<p><strong>Note:</strong>
+1. We make use of the ‘after_success’ option to run aws cli command to sync our assets folder to s3 bucket.</p>
+
+<ol>
+  <li>The path to the ‘assets’ folder is ‘./_site/assets’ which doesn’t exist in our repository because ‘_site’ is excluded by the ‘.gitignore’ entry, but jekyll creates it after a successful build.</li>
+</ol>
+
+<h5 id="add-assets-folder">Add ‘assets’ folder</h5>
+
+<p>Now, you add a folder under the root and name it as ‘assets’; also add some images, css and javascript files as shown below:</p>
+
+<p><img src="https://d3u9etne7s6j1g.cloudfront.net/blog/img/600x600/travis-yml-and-assets-folder.png" alt="alt text" title="travis yml and assets folder" width="80%" /></p>
+
+<p>Once you complete that open Terminal and run the following commands:</p>
+
+<pre class="prettyprint">
+$ git add .
+$ git commit -m "add .travis.yml and assets folder"
+$ git push -u origin dev
+</pre>
+
+<p>Now the files you added in ‘assets’ folder should be deployed into the amazon s3 bucket you created, as shown in action below.</p>
+
+<p><img src="https://d3u9etne7s6j1g.cloudfront.net/blog/img/github-travis-amazon-s3.gif" alt="alt text" title="turbotax self employed" width="100%" /></p>
+
+      </div>
+        
+      <div class="post-content col-md-8 offset-md-2">
+      
+        <div class="blog-tags">
+          <i class="fa fa-tags"></i>
+          
+            travis CI, github, Amazon s3 bucket
+          
+        </div>
+      
+
+     
+
+      
+
+      
+        <div class="disqus-comments">
+          
+<div class="comments">
+	<div id="disqus_thread"></div>
+	<script type="text/javascript">
+	    var disqus_shortname = 'mesfinmoges-com';
+	    /* ensure that pages with query string get the same discussion */
+            var url_parts = window.location.href.split("?");
+            var disqus_url = url_parts[0];	    
+	    (function() {
+	        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+	        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+	        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+	    })();
+	</script>
+	<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+
+
+        </div>
+      
+      </div>
+    </div>
+  </div>
+</div>
+</section>
+
+    
+<footer>
+    <div class="container">
+          
+        <div class="col-md-12">
+          
+    <ul class="list-inline text-center footer-links">
+
+      
+      <li>
+        <a href="mailto:info@mesfinmoges.com?subject=Hello from mesfinmoges.com" title="Email me">
+          <span class="fa-stack fa-sm">
+            <i class="fa fa-circle fa-stack-2x"></i>
+            <i class="fa fa-envelope fa-stack-1x fa-inverse"></i>
+          </span>
+        </a>
+      </li>
+      
+
+      
+   
+      
+
+      
+      <li>
+        <a href="https://twitter.com/mesfinmoges" title="Twitter" target="blank">
+          <span class="fa-stack fa-sm">
+            <i class="fa fa-circle fa-stack-2x"></i>
+            <i class="fa fa-twitter fa-stack-1x fa-inverse"></i>
+          </span>
+        </a>
+      </li>
+      
+
+      
+      <li>
+        <a href="https://github.com/mesfinmo" title="GitHub" target="blank">  
+          <span class="fa-stack fa-sm">
+            <i class="fa fa-circle fa-stack-2x"></i>
+            <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+          </span>
+        </a>
+      </li>
+      
+
+      
+      <li>
+        <a href="https://www.facebook.com/mesfinmoges" title="Facebook" target="blank">
+          <span class="fa-stack fa-sm">
+            <i class="fa fa-circle fa-stack-2x"></i>
+            <i class="fa fa-facebook fa-stack-1x fa-inverse"></i>
+          </span>
+        </a>
+      </li>
+      
+
+      
+      <li>
+        <a href="https://stackoverflow.com/users/7480284/mesfinmo" title="StackOverflow" target="blank">
+          <span class="fa-stack fa-sm">
+            <i class="fa fa-circle fa-stack-2x"></i>
+            <i class="fa fa-stack-overflow fa-stack-1x fa-inverse"></i>
+          </span>
+        </a>
+      </li>
+      
+
+      
+
+    
+
+      
+
+    </ul>
+
+    <p class="copyright text-muted ">
+      © Mesfin Moges
+      &nbsp;•&nbsp;
+      2018
+
+      
+      &nbsp;•&nbsp;
+      <a href="mailto:info@mesfinmoges.com?subject=Hello from mesfinmoges.com">info@mesfinmoges.com</a>
+      
+    </p>
+    
+    
+
+   
+  </div>
+</div>
+</footer>
+
+
+<script src="https://cdn.rawgit.com/google/code-prettify/master/loader/run_prettify.js?autoload=true&amp;skin=sons-of-obsidian&amp;lang=css" defer=""></script>
+
+  
+    
+
+
+
+
+
+
+
+
+
+  <script src="https://d3u9etne7s6j1g.cloudfront.net/base/js/tether-df4c4d96cf.min.js"></script>
+
+
+  <script src="https://d3u9etne7s6j1g.cloudfront.net/base/js/main-cec82db89a.js"></script>
+
+
+  <script src="https://d3u9etne7s6j1g.cloudfront.net/base/js/lightbox-plus-jquery-v2-006e1b760a.1.4.min.js"></script>
+
+
+  <script src="https://d3u9etne7s6j1g.cloudfront.net/base/js/core-b31f3f4e32.js"></script>
+
+
+  <script src="https://d3u9etne7s6j1g.cloudfront.net/base/js/jquery-3-a09e13ee94.3.1.min.js"></script>
+
+
+  <script src="https://d3u9etne7s6j1g.cloudfront.net/base/js/jquery-83cd5c4f15.timeago.js"></script>
+
+
+  <script src="https://d3u9etne7s6j1g.cloudfront.net/base/js/bootstrap-14d449eb88.min.js"></script>
+
+
+  <script src="https://d3u9etne7s6j1g.cloudfront.net/base/js/particles-08bd8ed926.min.js"></script>
+
+
+  <script src="https://d3u9etne7s6j1g.cloudfront.net/blog/js/app-6c1f9a1499.js"></script>
+
+
+
+
+
+	<!-- Google Analytics -->
+	<script>
+		(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+		(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+		m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+		})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+		ga('create', 'UA-107828028-1', 'auto');
+		ga('send', 'pageview');
+	</script>
+	<!-- End Google Analytics -->
+
+
+<script>
+$(document).ready(function() {
+  $("time.timeago").timeago();
+});
+
+$(document).ready(function() {
+  var pathname = window.location.pathname.split('/')[1];
+  if (pathname == "") pathname = 'blog';
+    $( "nav li" ).each(function() {
+      if (this.id == pathname) {
+        $(this).addClass('active');
+      }else {
+        $(this).removeClass('active');
+      }
+    });
+});
+</script>
+
+    
+    
+      <!-- Go to www.addthis.com/dashboard to customize your tools -->
+<script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-5a76747e2e07b93d"></script>
+
+    
+
+    <!-- <script type="text/javascript">
+
+	$(document).ready(function() {
+	
+		$(document).mousemove(function(e) {
+		
+			$('#exitpopup').css('left', (window.innerWidth/2 - $('#exitpopup').width()/2));
+			$('#exitpopup').css('top', (window.innerHeight/2 - $('#exitpopup').height()/2));
+		
+			if(e.pageY <= 5)
+			{
+				
+				// Show the exit popup
+				$('#exitpopup_bg').fadeIn();
+				$('#exitpopup').fadeIn();
+			}
+		
+		});
+		
+		$('#exitpopup_bg').click(function(){
+			$('#exitpopup_bg').fadeOut();
+			$('#exitpopup').slideUp();
+		});
+	
+	});
+</script>
+
+<style type="text/css">
+
+	#exitpopup
+	{
+		text-align:center;
+	}
+
+	#exitpopup h1
+	{
+		margin-top:0px;
+		padding-top:0px;
+		
+	}	
+	
+	#exitpopup p
+	{
+		text-align:left;
+	}
+
+</style>
+
+
+
+<div style="display: none; width:100%; height:100%; position:fixed; background:#000000; opacity: .8; filter:alpha(opacity=0.8); z-index:999998;" id="exitpopup_bg">
+	
+</div>
+<div style="width:670px; height:450px; margin:0px auto; display:none; position:fixed; color:#ffffff; padding:20px; -webkit-border-radius: 4px; -moz-border-radius: 4px; border-radius: 4px; z-index:999999; background:rgb(20, 20, 20); background:rgba(0, 0, 0, 0.8);" id="exitpopup">
+		<h1>Wait!!! Before you go...</h1>
+		<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis aliquam interdum enim ut congue. Vivamus erat velit, convallis nec suscipit at, egestas nec nunc. Phasellus in faucibus nunc. Curabitur luctus suscipit faucibus. Phasellus risus risus, bibendum vitae commodo at, gravida in lorem. Nam euismod, turpis non viverra eleifend, leo lorem tempor elit, sit amet hendrerit justo purus at magna. In hac habitasse platea dictumst. Integer sodales pretium libero sed mattis. Aenean suscipit neque ac purus tincidunt iaculis.<br /><br />
+
+Pellentesque ultricies tellus eu orci tempor aliquam vel posuere orci. Nulla in sapien ut tellus malesuada vulputate. Nunc sit amet enim felis, sit amet semper sapien. Vestibulum commodo, nisi vitae faucibus ullamcorper, libero est varius lorem, vel euismod ipsum odio sed elit. Sed risus enim, viverra sit amet pharetra molestie, scelerisque nec tortor.</p>
+<a href="#"><img src="letmeinnow.png" style="width:568px; height:190px" border="0" style="border:0px; margin:0px auto;" /></a>
+
+</div> -->
+
+    <script id="dsq-count-scr" src="//mesfinmoges-com.disqus.com/count.js" async></script>
+  </body>
+</html>
