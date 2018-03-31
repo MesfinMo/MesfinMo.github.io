@@ -129,7 +129,7 @@ title-separator: "-"
 timezone: "America/Vancouver"
 markdown: kramdown
 highlighter: rouge
-permalink: /:year-:month-:day-:title/
+permalink: /:title/
 #permalink: pretty == #/:categories/:year/:month/:day/:title/
 #permalink: /mypageurl/
 paginate: 10
