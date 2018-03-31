@@ -174,7 +174,6 @@
 </div>
 
 <div id="particles-js"></div>
-<!-- <canvas class="particles-js-canvas-el"  style="width: 100%; height: 170px"></canvas> -->
 </header>
 
 
@@ -191,18 +190,21 @@
         </button>
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
           <ul class="navbar-nav mr-auto">
+              <li class="nav-item active" id="blog">
+                  <a class="nav-link" href="/">Home <span class="sr-only">(current)</span></a>
+                </li>
             <li class="nav-item active" id="blog">
-              <a class="nav-link" href="/">Blog <span class="sr-only">(current)</span></a>
+              <a class="nav-link" href="/">Blog </a>
             </li>
-            <li class="nav-item" id="about">
-              <a class="nav-link" href="#">About</a>
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                About
+              </a>
+              <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                <a class="dropdown-item" href="/aboutme">Me</a>
+                <a class="dropdown-item" href="/aboutblog">This blog</a>
+              </div>
             </li>
-            <!-- <li class="nav-item" id="videos">
-              <a class="nav-link" href="/videos">Videos</a>
-            </li>
-            <li class="nav-item" id="originals">
-              <a class="nav-link" href="/originals">Originals</a>
-            </li> -->
             
           </ul>
           <form class="form-inline my-2 my-lg-0">
@@ -216,11 +218,12 @@
 
 
     
-          <section class="banner-sec" style="display:none">
-  <div class="container">
-    
-      <div class="col-md-12">
-
+    <section>
+            <div class="container">
+                        <div class="post-wrapper">
+                <div class="col-md-12">
+  
+      
 
 
 <div class="row">
@@ -789,16 +792,8 @@
 </ul>
 
 
-</div>
 
-  </div>
-</section>
-<div class="container">
-    
-    <div class="col-md-12">
-<h1>Coming soon!!</h1>
-    </div>
-</div>
+
 	    <!--
         <div class="disqus-comments">
 	        
@@ -820,7 +815,11 @@
 
 
         </div>
-	    -->
+          -->
+          </div>
+            </div>
+            </div>
+</section>
   
 
 

@@ -4,10 +4,7 @@ title: My blog site
 subtitle: Coming soon!!
 use-site-title: true
 ---
-<section class="banner-sec" style="display:none">
-  <div class="container">
-    
-      <div class="col-md-12">
+
 {% for post in paginator.posts %}
 {% assign rowindex = forloop.index | modulo:2 %}
 {% if rowindex == 1 %}
@@ -76,13 +73,4 @@ use-site-title: true
 </ul>
 {% endif %}
 
-</div>
 
-  </div>
-</section>
-<div class="container">
-    
-    <div class="col-md-12">
-<h1>Coming soon!!</h1>
-    </div>
-</div>
