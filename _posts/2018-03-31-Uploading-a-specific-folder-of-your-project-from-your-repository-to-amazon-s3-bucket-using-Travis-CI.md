@@ -82,7 +82,7 @@ Open the IAM console and click on ‘Policies’ tab on the left menu and then c
 - ‘Actions’ : ‘Write’, select ‘PutObject’ and ‘DeleteObject’
 - ‘Actions’ : ‘Permissions management’, select ‘PutObjectAcl’
 - ‘Resources’, select specific and then click on the ‘Add ARN’ link corresponding to ‘bucket’; on the popup window enter the ARN for the bucket we created in the previous step which is ‘arn:aws:s3:::blog-samples-site-assets’
-- Click on ‘Add ARN’ link corresponding to ‘object’; on the popup window, enter the ARN followed by a forward slash and ‘*’, as  ‘arn:aws:s3:::blog-samples-site-assets/*’
+- Click on ‘Add ARN’ link corresponding to ‘object’; on the popup window, enter the ARN followed by a forward slash and ‘\*’, as  ‘arn:aws:s3:::blog-samples-site-assets/\*’
 
 > **Note**: You can find the ARN for a bucket by highlighting in from the list on S3 console and from the information window, click on ‘Copy Bucket ARN’
 
