@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Mesfin T Moges</title>
+    <description>A virtual proof that name is awesome!</description>
+    <link>http://localhost:4000</link>
+    <atom:link href="http://localhost:4000/feed.xml" rel="self" type="application/rss+xml" />
+    
+      <item>
+        <title>AWS chart updated !!!!</title>
+        <description>
+          This is my first post, how exciting! This is my first post, how exciting! - 
+          Test : AWS chart AWS chart
+
+        </description>
+        <pubDate>Wed, 31 Jan 2018 00:00:00 -0800</pubDate>
+        <link>http://localhost:4000/aws-chart/</link>
+        <guid isPermaLink="true">http://localhost:4000/aws-chart/</guid>
+      </item>
+    
+      <item>
+        <title>Terminal Command</title>
+        <description>
+          This is my first post, how exciting! This is my first post, how exciting! - 
+          Test : Terminal Command Terminal Command
+
+        </description>
+        <pubDate>Tue, 30 Jan 2018 00:00:00 -0800</pubDate>
+        <link>http://localhost:4000/terminal-command/</link>
+        <guid isPermaLink="true">http://localhost:4000/terminal-command/</guid>
+      </item>
+    
+      <item>
+        <title>Lucid chart</title>
+        <description>
+          This is my first post, how exciting! This is my first post, how exciting! - 
+          Test : Mountain snow mountain snow
+
+        </description>
+        <pubDate>Mon, 29 Jan 2018 00:00:00 -0800</pubDate>
+        <link>http://localhost:4000/lucid-chart/</link>
+        <guid isPermaLink="true">http://localhost:4000/lucid-chart/</guid>
+      </item>
+    
+      <item>
+        <title>AWS architecture</title>
+        <description>
+          This is my first post, how exciting! This is my first post, how exciting! - 
+          Test : Mountain snow mountain snow
+
+        </description>
+        <pubDate>Sun, 28 Jan 2018 00:00:00 -0800</pubDate>
+        <link>http://localhost:4000/aws-arc/</link>
+        <guid isPermaLink="true">http://localhost:4000/aws-arc/</guid>
+      </item>
+    
+      <item>
+        <title>Cloud Lock</title>
+        <description>
+          This is my first post, how exciting! This is my first post, how exciting! - 
+          Test : Mountain snow mountain snow
+
+        </description>
+        <pubDate>Fri, 26 Jan 2018 00:00:00 -0800</pubDate>
+        <link>http://localhost:4000/cloud-lock/</link>
+        <guid isPermaLink="true">http://localhost:4000/cloud-lock/</guid>
+      </item>
+    
+      <item>
+        <title>Cloud Computing</title>
+        <description>
+          This is my first post, how exciting! This is my first post, how exciting! - 
+          Test : Mountain snow mountain snow
+
+        </description>
+        <pubDate>Fri, 26 Jan 2018 00:00:00 -0800</pubDate>
+        <link>http://localhost:4000/cloud-computing/</link>
+        <guid isPermaLink="true">http://localhost:4000/cloud-computing/</guid>
+      </item>
+    
+      <item>
+        <title>Snow mountain</title>
+        <description>
+          This is my first post, how exciting! This is my first post, how exciting! - 
+          Test : Mountain snow mountain snow
+
+        </description>
+        <pubDate>Mon, 22 Jan 2018 00:00:00 -0800</pubDate>
+        <link>http://localhost:4000/snow-mountain/</link>
+        <guid isPermaLink="true">http://localhost:4000/snow-mountain/</guid>
+      </item>
+    
+      <item>
+        <title>Hellow world html</title>
+        <description>
+          This is my first post, how exciting! This is my first post, how exciting! - 
+          This is my first post, how exciting!
+
+        </description>
+        <pubDate>Sun, 14 Jan 2018 00:00:00 -0800</pubDate>
+        <link>http://localhost:4000/hello-world-html/</link>
+        <guid isPermaLink="true">http://localhost:4000/hello-world-html/</guid>
+      </item>
+    
+      <item>
+        <title>First post!</title>
+        <description>
+          This is my first post, how exciting! This is my first post, how exciting! - 
+          This is my first post, how exciting!
+
+        </description>
+        <pubDate>Thu, 04 Jan 2018 00:00:00 -0800</pubDate>
+        <link>http://localhost:4000/second-test-post/</link>
+        <guid isPermaLink="true">http://localhost:4000/second-test-post/</guid>
+      </item>
+    
+      <item>
+        <title>Test two post post!</title>
+        <description>
+          This is my first post, how exciting! This is my first post, how exciting! - 
+          This is my first post, how exciting!
+
+        </description>
+        <pubDate>Sun, 04 Jun 2017 00:00:00 -0700</pubDate>
+        <link>http://localhost:4000/test-two-post/</link>
+        <guid isPermaLink="true">http://localhost:4000/test-two-post/</guid>
+      </item>
+    
+      <item>
+        <title>Test post!</title>
+        <description>
+          This is my first post, how exciting! This is my first post, how exciting! - 
+          This is a test post!!!
+
+        </description>
+        <pubDate>Thu, 03 Mar 2016 00:00:00 -0800</pubDate>
+        <link>http://localhost:4000/test-post/</link>
+        <guid isPermaLink="true">http://localhost:4000/test-post/</guid>
+      </item>
+    
+      <item>
+        <title>First post!</title>
+        <description>
+          This is my first post, how exciting! This is my first post, how exciting! - 
+          This is my first post, how exciting!
+
+        </description>
+        <pubDate>Sun, 04 Jan 2015 00:00:00 -0800</pubDate>
+        <link>http://localhost:4000/first-post/</link>
+        <guid isPermaLink="true">http://localhost:4000/first-post/</guid>
+      </item>
+    
+  </channel>
+</rss>

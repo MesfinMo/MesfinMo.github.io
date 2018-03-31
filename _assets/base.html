@@ -1,0 +1,48 @@
+---
+common-css:
+  - https://d3u9etne7s6j1g.cloudfront.net/base/css/bootstrap.min.css
+  - https://d3u9etne7s6j1g.cloudfront.net/base/css/main.css
+  - https://d3u9etne7s6j1g.cloudfront.net/blog/css/custom.css
+  - https://d3u9etne7s6j1g.cloudfront.net/base/css/loaders.css
+common-ext-css:
+  - "//maxcdn.bootstrapcdn.com/font-awesome/4.6.0/css/font-awesome.min.css"
+common-googlefonts:
+  - "Lora:400,700,400italic,700italic"
+  - "Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800"
+common-js:
+  - https://d3u9etne7s6j1g.cloudfront.net/base/js/tether.min.js
+  - https://d3u9etne7s6j1g.cloudfront.net/base/js/main.js
+  - https://d3u9etne7s6j1g.cloudfront.net/base/js/lightbox-plus-jquery-v2.1.4.min.js
+  - https://d3u9etne7s6j1g.cloudfront.net/base/js/core.js
+  - https://d3u9etne7s6j1g.cloudfront.net/base/js/jquery-3.3.1.min.js
+  - https://d3u9etne7s6j1g.cloudfront.net/base/js/jquery.timeago.js
+  - https://d3u9etne7s6j1g.cloudfront.net/base/js/bootstrap.min.js
+  - https://d3u9etne7s6j1g.cloudfront.net/base/js/particles.min.js
+  - https://d3u9etne7s6j1g.cloudfront.net/blog/js/app.js
+---
+
+<!DOCTYPE html>
+<html lang="en">
+  {% include head.html %}
+
+  <body>
+   
+    {% include header.html type="page" %}
+    
+    {% include nav.html %}
+    
+    {{ content }}
+
+    {% include footer.html %}
+  
+    {% include footer-scripts.html %}
+    
+    {% if page.is_post == true %}
+      {% include addthis.html %}
+    {% endif %}
+
+    <!-- {% include exit-popup.html %} -->
+
+    <script id="dsq-count-scr" src="//{{ site.disqus }}.disqus.com/count.js" async></script>
+  </body>
+</html>
