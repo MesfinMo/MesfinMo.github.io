@@ -1,29 +1,58 @@
 ---
 layout: base
+show-avatar: true
 ---
 
-{% include header.html type="post" %}
+<section>
+<div class="container" role="main">
+    <div class="post-wrapper">
+        <div class="section-inner sectionLayout--insetColumn">
+            <div class="post-content col-md-8 offset-md-2">
+            <h1 class="post-title">
+              {{ page.title }}
+            </h1>
+            <div class="author">
+              <div class="container row">
+                <!-- <span>
+                  <img class="avatar-image avatar-image--small" 
+                  src="{{page.author-avatar}}">
+                </span> -->
+                <span class="author-bio">
+                  <!-- <div class="author-name">{{page.author-name}}</div>
+                  <div class="author-title">{{page.author-title}}</div> -->
+                  <div class="post-date">
+                    <time class="timeago" datetime="{{ page.date }}"></time>
+                  </div>
+                  </span>
+              </div>
+            </div>
 
-<div class="container">
-  <div class="row">
-    <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
-          <h1 class="post-title">
-            {{ page.title }}
-          </h1>
-          <div class="post-img-container">
-            <img class="progressiveMedia-image js-progressiveMedia-image" 
-            data-src="{{ page.post-image }}" 
-            src="{{ page.post-image }}" width=100%>
+            <div class="post-img-container">
+            <img class="post-avatar" data-src="{{page.image}}" 
+            src="{{page.image}}">
             {% if page.img-credit-url and page.img-credit-desc %}
             <span class="img-desc" style="display: inline;">
                 <a href="{{ page.img-credit-url}}" target="blank">{{ page.img-credit-desc}}</a>
               </span>
               {% endif %}
+            </div>
         </div>
-      <article role="main" class="blog-post">
+        
+      <div class="post-content col-md-8 offset-md-2">
         {{ content }}
-      </article>
-
+      </div>
+        {% if page.canonical %}
+         <div class="container">
+           <div class="row">
+              <div class="col-md-8 offset-md-2">
+                <div class="float-right">
+                  <a href="{{ page.canonical }}" target="blank">Read full story...</a>
+                </div>
+              </div>
+          </div>
+        </div>
+        {% endif %}
+      <div class="post-content col-md-8 offset-md-2">
       {% if page.tags.size > 0 %}
         <div class="blog-tags">
           <i class="fa fa-tags"></i>
@@ -37,26 +66,17 @@ layout: base
         </div>
       {% endif %}
 
-      
+     
 
-      <ul class="pager blog-pager">
-        {% if page.previous.url %}
-        <li class="previous">
-          <a href="{{ page.previous.url | prepend: site.baseurl | replace: '//', '/' }}" data-toggle="tooltip" data-placement="top" title="{{page.previous.title}}">&larr; Previous Post</a>
-        </li>
-        {% endif %}
-        {% if page.next.url %}
-        <li class="next">
-          <a href="{{ page.next.url | prepend: site.baseurl | replace: '//', '/' }}" data-toggle="tooltip" data-placement="top" title="{{page.next.title}}">Next Post &rarr;</a>
-        </li>
-        {% endif %}
-      </ul>
+      
 
       {% if page.comments %}
         <div class="disqus-comments">
           {% include disqus.html %}
         </div>
       {% endif %}
+      </div>
     </div>
   </div>
 </div>
+</section>
