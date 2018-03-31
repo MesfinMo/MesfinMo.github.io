@@ -7,7 +7,7 @@ description: A developer pushes code to a github repository, Travis CI gets noti
 active: true
 mainFeatured: true
 image: https://d3u9etne7s6j1g.cloudfront.net/blog/img/600x600/github-travis-amazons3.png
-cropImage: https://d3u9etne7s6j1g.cloudfront.net/blog/img/300x150/github-travis-amazons3.png
+cropImage: https://d3u9etne7s6j1g.cloudfront.net/blog/img/600x200/github-travis-amazons3.png
 img-credit-url: 
 img-credit-desc: 
 tags:
