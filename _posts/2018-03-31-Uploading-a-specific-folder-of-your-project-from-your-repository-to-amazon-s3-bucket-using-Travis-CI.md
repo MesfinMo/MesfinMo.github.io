@@ -2,7 +2,8 @@
 layout: post
 date: 2018-03-31T20:25:30Z
 title: "Uploading a specific folder of your project from your repository to amazon s3 bucket using Travis CI"
-description: Uploading a specific folder of your project from your repository to amazon s3 bucket using Travis CI...In this post we’ll step-by-step look into how we can use Travis CI to deploy a site ‘assets’ folder of our project to amazon s3 bucket automatically which is triggered by a code push to a Github repository.
+description: A developer pushes code to a github repository, Travis CI gets notified, it then starts building the code, run tests and commands based on scripts specified in ‘.travis.yml’ file. In our case, one of the commands is to deploy assets folder to amazon s3 bucket after a successful build. In this post we’ll step-by-step look into how we can use Travis CI to deploy a site ‘assets’ folder of our project to amazon s3 bucket automatically which is triggered by a code push to a Github repository.
+
 active: true
 mainFeatured: true
 image: https://d3u9etne7s6j1g.cloudfront.net/blog/img/600x600/github-travis-amazons3.png
@@ -189,6 +190,7 @@ Read the [Customizing the Build](https://docs.travis-ci.com/user/customizing-the
 sys
 
 **Note:**
+
 1. We make use of the ‘after_success’ option to run aws cli command to sync our assets folder to s3 bucket.
 
 2. The path to the ‘assets’ folder is ‘./_site/assets’ which doesn’t exist in our repository because ‘_site’ is excluded by the ‘.gitignore’ entry, but jekyll creates it after a successful build.
