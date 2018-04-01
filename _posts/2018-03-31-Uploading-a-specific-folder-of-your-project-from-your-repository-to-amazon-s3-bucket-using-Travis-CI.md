@@ -39,16 +39,14 @@ Jekyll is a simple but powerful static site generator which lets you create a si
 
 Now open up Visual Studio Code and go to the Integrated Terminal by pressing Ctrl+` and run the following commands:
 
+<div class="cmd">
 <pre class="prettyprint">
-$ gem install jekyll bundler
-
-$ jekyll new siteAssets
-
-$ cd siteAssets
-
-$ bundle exec jekyll serve
+$ <span class="c-str">gem install jekyll bundler</span>
+$ <span class="c-str">jekyll new siteAssets</span>
+$ <span class="c-str">cd siteAssets</span>
+$ <span class="c-str">bundle exec jekyll serve</span>
 </pre>
-
+</div>
 Now browse to http://localhost:4000
 
 ![alt text]({{ site.assetBaseUrl }}/blog/img/{{site.imgSize600}}/jekyll-default-site.png  "jekyll default site"){:width="100%"}
@@ -124,14 +122,15 @@ In this step, you create a github repository and push the code for the project y
 - change the current working directory to the project directory you created
 - run the following commands:
 
+<div class="cmd">
 <pre class="prettyprint">
-$ git init
-$ git add .
-$ git commit -m "First commit"
-$ git remote add origin remote git@github.com:MesfinMo/BlogSamples-siteAssets.git
-$ git push -u origin master
+$ <span class="c-str">git init</span>
+$ <span class="c-str">git add .</span>
+$ <span class="c-str">git commit -m "First commit"</span>
+$ <span class="c-str">git remote add origin remote git@github.com:MesfinMo/BlogSamples-siteAssets.git</span>
+$ <span class="c-str">git push -u origin master</span>
 </pre>
-
+</div>
 > **Note** : ‘git@github.com:MesfinMo/BlogSamples-siteAssets.git’ on the 4th command is the SSH url for the repository I created; rename it with the one you created.
 
 #### Step 4 - Enable your project repository in Travis CI
@@ -203,11 +202,13 @@ Now, you add a folder under the root and name it as ‘assets’; also add some 
 
 Once you complete that open Terminal and run the following commands:
 
+<div class="cmd">
 <pre class="prettyprint">
-$ git add .
-$ git commit -m "add .travis.yml and assets folder"
-$ git push -u origin dev
+$ <span class="c-str">git add .</span>
+$ <span class="c-str">git commit -m "add .travis.yml and assets folder"</span>
+$ <span class="c-str">git push -u origin dev</span>
 </pre>
+</div>
 
 Now the files you added in ‘assets’ folder should be deployed into the amazon s3 bucket you created, as shown in action below.
 
