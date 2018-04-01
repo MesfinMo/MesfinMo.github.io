@@ -160,19 +160,19 @@ In the root of your project add a new file and name it as ‘.travis.yml’ and 
 
 <div class="yml">
 <pre class="prettyprint linenums">
-language: python
+language:<span class="c-str"> python</span>
 python:
   - "2.7"
 install: 
-  - bundle install
-  - pip install awscli
+  - <span class="c-str">bundle install</span>
+  - <span class="c-str">pip install awscli</span>
 script:
-  - bundle exec jekyll build
+  - <span class="c-str">bundle exec jekyll build</span>
 after_success:
-  - aws s3 sync --delete ./_site/assets  s3://blog-samples-site-assets --cache-control max-age=604800
+  - <span class="c-str">aws s3 sync --delete ./_site/assets  s3://blog-samples-site-assets --cache-control max-age=604800</span>
 branches:
   only: 
-    - master
+    - <span class="c-str">master</span>
 </pre>
 </div>
 
@@ -193,6 +193,7 @@ sys
 >
 > 1. We make use of the ‘after_success’ option to run aws cli command to sync our assets folder to s3 bucket.
 > 2. The path to the ‘assets’ folder is ‘./_site/assets’ which doesn’t exist in our repository because ‘_site’ is excluded by the ‘.gitignore’ entry, but jekyll creates it after a successful build.
+
 
 ##### Add ‘assets’ folder
 
