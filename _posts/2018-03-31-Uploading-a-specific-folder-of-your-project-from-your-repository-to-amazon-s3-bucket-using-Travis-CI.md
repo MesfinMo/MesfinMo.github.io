@@ -183,17 +183,16 @@ There are basically two steps when travis CI performs a build :
 
 Travis CI also provides options to include custom commands if you want to run before the installation step ‘before_install’ as well as before ‘before_script’ or after ‘after_script’ the script step.
 
-**Note** : looking at the .travis.yml code above, there are no custom commands are required.
+> **Note** : looking at the .travis.yml code above, there are no custom commands are required.
 
 Travis CI also allows you to perform additional steps when your build succeeds or fails with ‘after_success’ or ‘after_failure’ options respectively. 
 Read the [Customizing the Build](https://docs.travis-ci.com/user/customizing-the-build/){:target="_blank"} for an in-depth explanation.
 sys
 
-**Note:**
-
-1. We make use of the ‘after_success’ option to run aws cli command to sync our assets folder to s3 bucket.
-
-2. The path to the ‘assets’ folder is ‘./_site/assets’ which doesn’t exist in our repository because ‘_site’ is excluded by the ‘.gitignore’ entry, but jekyll creates it after a successful build.
+> **Note:**
+>
+> 1. We make use of the ‘after_success’ option to run aws cli command to sync our assets folder to s3 bucket.
+> 2. The path to the ‘assets’ folder is ‘./_site/assets’ which doesn’t exist in our repository because ‘_site’ is excluded by the ‘.gitignore’ entry, but jekyll creates it after a successful build.
 
 ##### Add ‘assets’ folder
 
