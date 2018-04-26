@@ -1,6 +1,6 @@
 ---
 layout: post
-date: 2018-04-20T20:25:30Z
+date: 2018-04-26T20:25:30Z
 title: "Dynamic Image resizing using Amazon S3, AWS lambda, Amazon API Gateway and Amazon CloudFront"
 description: Images often account for most of website’s content; In fact,
     according to the HTTP Archive, images constitute more than 60% a website’s total bandwidth. 
