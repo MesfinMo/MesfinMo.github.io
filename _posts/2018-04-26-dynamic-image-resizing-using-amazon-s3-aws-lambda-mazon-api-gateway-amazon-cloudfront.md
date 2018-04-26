@@ -1,6 +1,6 @@
 ---
 layout: post
-date: 2018-04-26T20:25:30Z
+date: 2018-04-26T02:25:30Z
 title: "Dynamic Image resizing using Amazon S3, AWS lambda, Amazon API Gateway and Amazon CloudFront"
 description: Images often account for most of website’s content; In fact,
     according to the HTTP Archive, images constitute more than 60% a website’s total bandwidth. 
@@ -558,7 +558,7 @@ Creating the role with associated policies for this function which I will leave 
 
 #### Step 3: Create API Gateway
 
-API Gateway…
+With this API Gateway, we expose our image resizing Lambda function to be invoked through a GET method on a public interface of an HTTP endpoint. 
 
 Follow these steps to create an API Gateway :
 
@@ -578,7 +578,9 @@ Follow these steps to create an API Gateway :
 
 ![alt text]({{ site.assetBaseUrl }}/blog/img/{{site.imgSize600}}/api-gateway-get-method-execution.png  "api gateway get method execution"){:width="80%"}
 
-With this API Gateway, we expose our image resizing Lambda function to be invoked through a GET method on a public interface of an HTTP endpoint. In addition to being a frontend interface to our Lambda function, API Gateway can perform basic request input validation, map the payload from a method request to the corresponding integration request as required in our Lambda function and from integration response to the corresponding method response as expected by a client caller. API Gateway makes use of a mapping template which is a script expressed in Velocity Template Language (VTL) and apply in to the payload to do the mapping.
+In addition to being a frontend interface to our Lambda function, API Gateway can perform basic request input validation, map the payload from a method request to the corresponding integration request as required in our Lambda function and from integration response to the corresponding method response as expected by a client caller.
+
+API Gateway makes use of a mapping template which is a script expressed in Velocity Template Language (VTL) and apply in to the payload to do the mapping.
 
 Since our Lambda function expects a querystring **key** value in its JSON structure, Let’s first configure request validation to make sure the request has **key** query string. To do that:
 
