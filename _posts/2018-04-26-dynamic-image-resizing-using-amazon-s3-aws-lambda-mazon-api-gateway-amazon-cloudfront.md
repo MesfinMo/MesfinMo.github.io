@@ -28,7 +28,7 @@ When Google's PageSpeed Insights Tool detects that the images on a page are not 
 
 Serving large image assets only to have the browser resize them is not only an overhead of shipping unnecessary pixels, but also consumes extra CPU resources.
 
-One way of achieving this goal is to preprocess the images to every possible sizes which is not an ideal solution; the other good solution, instead, is to generate images dynamically when there’s a demand and make them available for future use.
+One way of achieving this goal is to pre-process the images to every possible sizes which is not an ideal solution; the other good solution, instead, is to generate images dynamically when there’s a demand and make them available for future use.
 
 In this post we will cover in depth how we can dynamically resize images using AWS Lambda, API Gateway and Amazon S3; and serve them through Amazon CloudFront CDN.
 
@@ -53,9 +53,9 @@ triggered by S3 bucket **bucket-site-asset-original** on **ObjectCreated** and *
 - Step 2 : The image is found in the CloudFront distribution; the work flow completes
 - Step 3 : The requested image is not found in the CloudFront, CloudFront requests to get it from origin server **bucket-site-asset-origin-server**
 - Step 4 : The requested image is found in the origin server **bucket-site-asset-origin-server**; it returns it to CloudFront, CloudFront returns the request to the user, also CloudFront caches it in all regional edge locations, 
-- Step 5 : The requested image in not found in the origin server **bucket-site-asset-origin-server**, the origin server is set up to host as static website and in that we have a routing rule for resources which are not found (404) to responde with 307 redirect to the API Gateway **APIGatewayResizeImage** endpoint url via CloudFront, which we’ll see in detail later in this post.
+- Step 5 : The requested image in not found in the origin server **bucket-site-asset-origin-server**, the origin server is set up to host as static website and in that we have a routing rule for resources which are not found (404) to respond with 307 redirect to the API Gateway **APIGatewayResizeImage** endpoint url via CloudFront, which we’ll see in detail later in this post.
 - Step 6 : The user browser makes a request to the API Gateway
-- Step 7 : The Lambda function **LambdaResizeImage** is trigged by the API Gateway
+- Step 7 : The Lambda function **LambdaResizeImage** is triggered by the API Gateway
 - Step 8 : The Lambda function **LambdaResizeImage** gets the original image from S3 bucket **bucket-site-asset-origin-server**
 - Step 9 : The S3 bucket **bucket-site-asset-origin-server** returns the orignal image
 - Step 10 : After the Lambda function **LambdaResizeImage** completes its resizing operations, it puts the processed image into S3 bucket **bucket-site-asset-origin-server**
@@ -530,7 +530,7 @@ exports.handler = (event, context, callback) => {
 
 </pre>
 
-This Lambda function first extracts the image dimensions and image type from the **key** parameter, and then does validations for allowed dimensions and image type; If all valid, it gets the origianl image from the bucket and performs resizing operation as per the requested dimentions; after successfull completion of the operation, it puts it in a in the bucket with the dimension as a folder name; and finally before it returns with the response, it invalidates the CloudFront for the first request key whose response was 307 redirect (at the time of this writing, CloudFront caches 307 redirect responses, but hopefully AWS will put some kind of mechanism soon by which developers can have control over caching behaviour on 30* redirects).
+This Lambda function first extracts the image dimensions and image type from the **key** parameter, and then does validations for allowed dimensions and image type; If all valid, it gets the original image from the bucket and performs resizing operation as per the requested dimensions; after successful completion of the operation, it puts it in a in the bucket with the dimension as a folder name; and finally before it returns with the response, it invalidates the CloudFront for the first request key whose response was 307 redirect (at the time of this writing, CloudFront caches 307 redirect responses, but hopefully AWS will put some kind of mechanism soon by which developers can have control over caching behavior on 30* redirects).
 
 <div class="NOTE alert">
   <p><i class="fa fa-info-circle"></i> Note</p>
@@ -578,11 +578,11 @@ Follow these steps to create an API Gateway :
 
 ![alt text]({{ site.assetBaseUrl }}/blog/img/{{site.imgSize600}}/api-gateway-get-method-execution.png  "api gateway get method execution"){:width="80%"}
 
-In addition to being a frontend interface to our Lambda function, API Gateway can perform basic request input validation, map the payload from a method request to the corresponding integration request as required in our Lambda function and from integration response to the corresponding method response as expected by a client caller.
+In addition to being a front-end interface to our Lambda function, API Gateway can perform basic request input validation, map the payload from a method request to the corresponding integration request as required in our Lambda function and from integration response to the corresponding method response as expected by a client caller.
 
 API Gateway makes use of a mapping template which is a script expressed in Velocity Template Language (VTL) and apply in to the payload to do the mapping.
 
-Since our Lambda function expects a querystring **key** value in its JSON structure, Let’s first configure request validation to make sure the request has **key** query string. To do that:
+Since our Lambda function expects a query string **key** value in its JSON structure, Let’s first configure request validation to make sure the request has **key** query string. To do that:
 
 - Click on the **Method Request** link on the top-left box
 - Under **Settings** section, click on the pencil icon next to **Request Validator** and select **Validate query string parameters and headers** from the list, and then click on the check mark to save it
@@ -726,7 +726,7 @@ From a test website, using the CloudFront Distribution, let’s reference the im
 
 When a request for a resized image comes to CloudFront for the very first time, it makes a request for it from Origin server; since the resized image is not yet created, the Origin server responds with 404 (not found) error; which makes the condition we put in the Routing rule setup to be true, enforcing the response to be a 307 redirect to the API Gateway endpoint, which is also part of the routing rule. This response will reach the browser via CloudFront, and then the browser makes a request to the API Gateway which is our trigger point for the **ImageResizeLambda** function. The API Gateway responds with the result from the Lambda function to the user.
 
-In the obove image you can see the fiddler requests and responses on line number 7 and 11 for the 307 redirect and a request/response from the API Gateway.
+In the above image you can see the fiddler requests and responses on line number 7 and 11 for the 307 redirect and a request/response from the API Gateway.
 
 
 ##### Second request
