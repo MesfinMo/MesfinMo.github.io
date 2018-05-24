@@ -715,9 +715,13 @@ To do that :
 
 From a test website, using the CloudFront Distribution, let’s reference the image we uploaded with a size dimensions to see the image resizing flow in action; and let’s also reference the same image without dimensions to access the original image and resize it in the browser to see the difference in bytes downloaded:
 
+```
+<img src="https://[your-distribusion-id].cloudfront.net/img/150x200/[your-upploaded-image-file-name]">
+<img src="https://[your-distribusion-id].cloudfront.net/img/[your-upploaded-image-file-name]" width="150px">
+```
+
 ##### Very first request
-**<img src="https://[your-distribusion-id].cloudfront.net/img/150x200/AmazonS3.png">**
-**<img src="https://[your-distribusion-id].cloudfront.net/img/AmazonS3.png" width="150px">**
+
 
 
  ![alt text]({{ site.assetBaseUrl }}/blog/img/{{site.imgSize600}}/test-image-resize.png  "test image resize 1st request"){:width="80%"}
