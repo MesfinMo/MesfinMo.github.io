@@ -12,6 +12,8 @@ image: https://d3u9etne7s6j1g.cloudfront.net/blog/img/600x600/dynamic-image-resi
 cropImage: https://d3u9etne7s6j1g.cloudfront.net/blog/img/600x200/dynamic-image-resizing-aws-services-architecture.png
 img-credit-url: 
 img-credit-desc: 
+categories: tech
+permalink: /:categories/:title/
 tags:
   - Amazon S3
   - AWS lambda
