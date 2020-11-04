@@ -154,7 +154,34 @@ defaults:
     values:
       layout: "page"
       comments: true  # add comments to all pages
-      show-avatar: true       
+      show-avatar: true
+  -
+    scope:
+      path: ""
+      type: "tech"
+    values:
+      layout: "posts"
+      comments: true  # add comments to all blog posts
+      social-share: true # add social media sharing buttons to all blog posts
+      is_post: true
+  -
+    scope:
+      path: ""
+      type: "health&fitness"
+    values:
+      layout: "posts"
+      comments: true  # add comments to all blog posts
+      social-share: true # add social media sharing buttons to all blog posts
+      is_post: true
+  -
+    scope:
+      path: ""
+      type: "randomthoughts"
+    values:
+      layout: "posts"
+      comments: true  # add comments to all blog posts
+      social-share: true # add social media sharing buttons to all blog posts
+      is_post: true     
 
 # Use tags pages (not recommended if you are deploying via GitHub pages, only set to true if deploying locally with ruby)
 link-tags: false
