@@ -137,6 +137,14 @@ paginate: 10
 kramdown:
   input: GFM
 
+collections:
+  tech:
+    output: true
+  lifestyle:
+    output: true
+  randomthoughts:
+    output: true
+  featured:
 # Default YAML values (more information on Jekyll's site)
 defaults:
   -
@@ -167,7 +175,7 @@ defaults:
   -
     scope:
       path: ""
-      type: "health&fitness"
+      type: "lifestyle"
     values:
       layout: "posts"
       comments: true  # add comments to all blog posts
