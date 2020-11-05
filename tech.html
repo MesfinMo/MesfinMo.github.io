@@ -4,8 +4,8 @@ title: My blog site
 subtitle: Coming soon!!
 use-site-title: true
 ---
-
-{% for post in paginator.posts %}
+{% assign techs = site.categories.tech %} {% for post in techs %}
+ 
 {% assign rowindex = forloop.index | modulo:2 %}
 {% if rowindex == 1 %}
 <div class="row">
